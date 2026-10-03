@@ -1,55 +1,108 @@
-# Inventory Risk & Replenishment Decision Copilot — Phase 1
+# Inventory Risk & Replenishment Decision Copilot
 
-本目录保存 FreshRetailNet-50K 的原始训练数据、全量门店-SKU 汇总、候选门店分析、最终 1 店 × 5 SKU 数据集及验证报告。
+基于 FreshRetailNet-50K 数据集构建的库存缺货风险与补货决策项目。
 
-## 数据来源
+项目利用历史销售与缺货数据动态估计近期需求，并结合模拟的当前库存与补货提前期，计算库存覆盖情况、缺货风险和补货优先级。
 
-- Dataset: `Dingdong-Inc/FreshRetailNet-50K`
-- Official file: `data/train.parquet`
-- Source page: https://huggingface.co/datasets/Dingdong-Inc/FreshRetailNet-50K
-- Local raw file: `data/raw/train.parquet`
-- Verified SHA-256: `6706832db892bbae4969c19d87e07975d2543d2ba7d7d4756360654785de5a3d`
+## 项目流程
 
-## 主要输出
+```text
 
-- `store_sku_summary.csv`: 全部 50,000 条门店-SKU 序列的汇总统计。
-- `freshretail_mvp.csv`: 最终 450 行 MVP 数据。
-- `freshretail_mvp.parquet`: 与 CSV 内容一致的 Parquet 版本。
-- `reports/raw_data_profile.txt`: 原始 shape、字段、dtype、前 10 行、缺失和选择阈值。
-- `reports/store_candidates.csv`: 898 家门店的候选统计和排序。
-- `reports/selected_skus.csv`: 最终 5 个 SKU 的汇总与选择理由。
-- `reports/final_validation.txt`: 最终数据质量与分布检查。
+FreshRetailNet 历史数据
 
-## 复现
+        ↓
 
-项目内的 `.python-deps` 可保存本地分析所需的 Parquet 引擎：
+SQLite
 
-```bash
-PYTHONPATH=.python-deps python scripts/analyze_freshretail.py
-PYTHONPATH=.python-deps python scripts/build_freshretail_mvp.py
+        ↓
+
+需求估计
+
+        ↓
+
+库存覆盖计算
+
+        ↓
+
+缺货风险与补货优先级判断
+
+        ↓
+
+FastAPI
+
+        ↓
+
+Render
+
+        ↓
+
+Dify
+
+        ↓
+
+自然语言库存决策 Copilot
+
+
+
+## 技术栈
+
+- Python
+- SQLite
+- FastAPI
+- Unit Test
+- Render
+- Dify
+
+## 项目结构
+
+```
+api/        FastAPI 接口
+src/        核心业务逻辑
+scripts/    数据处理与数据库构建
+tests/      自动测试
+reports/    数据分析与验证结果
+docs/       数据字段与口径说明
 ```
 
-第二个脚本会重新生成 CSV/Parquet，并执行键唯一性、缺失值、数值范围、汇总对账和格式回读检查。
+## 本地运行
 
-## API 与部署构建
+安装依赖：
 
-API 运行和测试所需依赖由 `requirements.txt` 管理。SQLite 数据库是部署时生成文件，不提交到 Git：
-
-```bash
+```
 pip install -r requirements.txt
+```
+
+构建 SQLite 数据库：
+
+```
 python scripts/build_inventory_db.py
+```
+
+运行测试：
+
+```
 python -m unittest discover -s tests -v
+```
+
+启动 API：
+
+```
 uvicorn api.main:app --host 0.0.0.0 --port 8000
 ```
 
-Render Build Command：
+## API
 
-```bash
-pip install -r requirements.txt && python scripts/build_inventory_db.py
+```
+GET /health
+GET /replenishment-decision?sku_id=851&as_of_date=2024-06-25
 ```
 
-Render Start Command：
+## 数据说明
 
-```bash
-uvicorn api.main:app --host 0.0.0.0 --port $PORT
+历史销售与缺货数据来源于 FreshRetailNet-50K。
+
+`lead_time_days` 和 `current_inventory` 为项目中构造的模拟运营参数，不属于原始数据集。
+
+由于原始数据中的销量经过归一化处理，因此项目中的需求和库存计算均基于统一的 normalized scale，不解释为真实商品件数。  
 ```
+
