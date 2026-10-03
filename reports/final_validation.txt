@@ -1,0 +1,45 @@
+FreshRetailNet MVP final validation
+
+Rows: 450
+Stores: 1 (837)
+Products: 5 (44, 167, 316, 834, 851)
+Date range: 2024-03-28 to 2024-06-25
+Duplicate store_id + product_id + dt rows: 0
+Missing values: {'store_id': 0, 'product_id': 0, 'dt': 0, 'sale_amount': 0, 'stock_hour6_22_cnt': 0}
+
+Per-SKU checks:
+ product_id  record_count  unique_days   date_min   date_max  active_sales_days  total_sales  stockout_days  total_stockout_hours  stockout_day_ratio
+         44            90           90 2024-03-28 2024-06-25                 51        60.10             70                   937            0.777778
+        167            90           90 2024-03-28 2024-06-25                 89        92.00             15                   122            0.166667
+        316            90           90 2024-03-28 2024-06-25                 81       118.67             28                   325            0.311111
+        834            90           90 2024-03-28 2024-06-25                 71       138.40             40                   512            0.444444
+        851            90           90 2024-03-28 2024-06-25                 86       144.50              5                    57            0.055556
+
+sale_amount distribution:
+{
+  "count": 450,
+  "mean": 1.230377777777778,
+  "std": 0.9916489111472166,
+  "min": 0.0,
+  "25%": 0.5,
+  "50%": 1.1,
+  "75%": 1.7,
+  "max": 6.2,
+  "zero_count": 72
+}
+
+stock_hour6_22_cnt distribution:
+{
+  "count": 450,
+  "mean": 4.34,
+  "std": 6.542814280433194,
+  "min": 0.0,
+  "25%": 0.0,
+  "50%": 0.0,
+  "75%": 10.0,
+  "max": 16.0,
+  "zero_count": 292
+}
+
+CSV round-trip: PASS
+Parquet round-trip: PASS

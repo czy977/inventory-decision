@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "source_file": "freshretail_mvp.csv",
+  "checks": {
+    "source_shape_is_450_by_5": true,
+    "detail_has_25_rows": true,
+    "all_requested_sku_as_of_pairs_present_once": true,
+    "no_as_of_date_or_future_data_used": true,
+    "all_14d_and_30d_boundaries_correct": true,
+    "confidence_and_manual_review_match_rules": true,
+    "estimated_demand_matches_selected_median": true,
+    "summary_excludes_null_estimates": true
+  },
+  "insufficient_data_exists": true,
+  "insufficient_data_count": 2,
+  "insufficient_data_records": [
+    {
+      "sku_id": 44,
+      "as_of_date": "2024-05-01"
+    },
+    {
+      "sku_id": 44,
+      "as_of_date": "2024-05-15"
+    }
+  ],
+  "extended_window_count": 3,
+  "extended_window_records": [
+    {
+      "sku_id": 834,
+      "as_of_date": "2024-05-15"
+    },
+    {
+      "sku_id": 44,
+      "as_of_date": "2024-05-29"
+    },
+    {
+      "sku_id": 44,
+      "as_of_date": "2024-06-12"
+    }
+  ]
+}

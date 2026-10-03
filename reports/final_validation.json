@@ -1,0 +1,111 @@
+{
+  "row_count": 450,
+  "store_count": 1,
+  "store_id": 837,
+  "product_count": 5,
+  "product_ids": [
+    44,
+    167,
+    316,
+    834,
+    851
+  ],
+  "date_range": [
+    "2024-03-28",
+    "2024-06-25"
+  ],
+  "duplicate_key_rows": 0,
+  "missing_values": {
+    "store_id": 0,
+    "product_id": 0,
+    "dt": 0,
+    "sale_amount": 0,
+    "stock_hour6_22_cnt": 0
+  },
+  "per_sku": [
+    {
+      "product_id": 44,
+      "record_count": 90,
+      "unique_days": 90,
+      "date_min": "2024-03-28",
+      "date_max": "2024-06-25",
+      "active_sales_days": 51,
+      "total_sales": 60.1,
+      "stockout_days": 70,
+      "total_stockout_hours": 937,
+      "stockout_day_ratio": 0.7777777777777778
+    },
+    {
+      "product_id": 167,
+      "record_count": 90,
+      "unique_days": 90,
+      "date_min": "2024-03-28",
+      "date_max": "2024-06-25",
+      "active_sales_days": 89,
+      "total_sales": 92.0,
+      "stockout_days": 15,
+      "total_stockout_hours": 122,
+      "stockout_day_ratio": 0.16666666666666666
+    },
+    {
+      "product_id": 316,
+      "record_count": 90,
+      "unique_days": 90,
+      "date_min": "2024-03-28",
+      "date_max": "2024-06-25",
+      "active_sales_days": 81,
+      "total_sales": 118.67,
+      "stockout_days": 28,
+      "total_stockout_hours": 325,
+      "stockout_day_ratio": 0.3111111111111111
+    },
+    {
+      "product_id": 834,
+      "record_count": 90,
+      "unique_days": 90,
+      "date_min": "2024-03-28",
+      "date_max": "2024-06-25",
+      "active_sales_days": 71,
+      "total_sales": 138.4,
+      "stockout_days": 40,
+      "total_stockout_hours": 512,
+      "stockout_day_ratio": 0.4444444444444444
+    },
+    {
+      "product_id": 851,
+      "record_count": 90,
+      "unique_days": 90,
+      "date_min": "2024-03-28",
+      "date_max": "2024-06-25",
+      "active_sales_days": 86,
+      "total_sales": 144.5,
+      "stockout_days": 5,
+      "total_stockout_hours": 57,
+      "stockout_day_ratio": 0.05555555555555555
+    }
+  ],
+  "sale_amount_distribution": {
+    "count": 450,
+    "mean": 1.230377777777778,
+    "std": 0.9916489111472166,
+    "min": 0.0,
+    "25%": 0.5,
+    "50%": 1.1,
+    "75%": 1.7,
+    "max": 6.2,
+    "zero_count": 72
+  },
+  "stock_hour6_22_cnt_distribution": {
+    "count": 450,
+    "mean": 4.34,
+    "std": 6.542814280433194,
+    "min": 0.0,
+    "25%": 0.0,
+    "50%": 0.0,
+    "75%": 10.0,
+    "max": 16.0,
+    "zero_count": 292
+  },
+  "csv_roundtrip_ok": true,
+  "parquet_roundtrip_ok": true
+}

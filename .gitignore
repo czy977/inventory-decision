@@ -1,0 +1,28 @@
+# Python caches and local environments
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.venv/
+.python-deps/
+
+# Local environment files
+.env
+.env.*
+
+# macOS metadata
+.DS_Store
+
+# Rebuilt during deployment
+data/inventory.db
+data/inventory.*.db.tmp
+data/raw/
+
+# Local analysis artifacts
+freshretail_mvp.parquet
+reports/rolling_window_stability_detail.csv
+reports/eda/eda_validation.json
+reports/raw_data_profile.json
+reports/raw_data_profile.txt
+reports/store_candidates.csv
+store_sku_summary.csv

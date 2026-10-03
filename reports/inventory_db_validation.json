@@ -1,0 +1,101 @@
+{
+  "passed": true,
+  "database": "data/inventory.db",
+  "sqlite_version": "3.53.1",
+  "checks": {
+    "sales_history_has_450_rows": true,
+    "sku_operational_state_has_5_rows": true,
+    "sales_history_has_no_duplicate_sku_date": true,
+    "sku_operational_state_has_no_duplicate_sku": true,
+    "unique_constraint_rejects_duplicate_sku_date": true,
+    "primary_key_rejects_duplicate_sku": true,
+    "parameter_source_check_rejects_non_simulated": true,
+    "query_by_sku_returns_90_rows": true,
+    "query_by_sku_and_date_range_returns_7_rows": true,
+    "sales_history_unique_index_exists": true,
+    "all_parameter_sources_are_simulated": true
+  },
+  "record_counts": {
+    "sales_history": 450,
+    "sku_operational_state": 5
+  },
+  "operational_state": [
+    {
+      "sku_id": 851,
+      "lead_time_days": 2,
+      "current_inventory": 3.2,
+      "parameter_source": "simulated"
+    },
+    {
+      "sku_id": 167,
+      "lead_time_days": 3,
+      "current_inventory": 3.6,
+      "parameter_source": "simulated"
+    },
+    {
+      "sku_id": 316,
+      "lead_time_days": 4,
+      "current_inventory": 7.0,
+      "parameter_source": "simulated"
+    },
+    {
+      "sku_id": 834,
+      "lead_time_days": 5,
+      "current_inventory": 11.0,
+      "parameter_source": "simulated"
+    },
+    {
+      "sku_id": 44,
+      "lead_time_days": 3,
+      "current_inventory": 4.5,
+      "parameter_source": "simulated"
+    }
+  ],
+  "example_query": {
+    "sql": "SELECT sku_id, date, sale_amount, stock_hour6_22_cnt FROM sales_history WHERE sku_id = 834 AND date BETWEEN '2024-06-01' AND '2024-06-07' ORDER BY date;",
+    "rows": [
+      {
+        "sku_id": 834,
+        "date": "2024-06-01",
+        "sale_amount": 2.8,
+        "stock_hour6_22_cnt": 0
+      },
+      {
+        "sku_id": 834,
+        "date": "2024-06-02",
+        "sale_amount": 2.8,
+        "stock_hour6_22_cnt": 0
+      },
+      {
+        "sku_id": 834,
+        "date": "2024-06-03",
+        "sale_amount": 2.5,
+        "stock_hour6_22_cnt": 0
+      },
+      {
+        "sku_id": 834,
+        "date": "2024-06-04",
+        "sale_amount": 1.6,
+        "stock_hour6_22_cnt": 0
+      },
+      {
+        "sku_id": 834,
+        "date": "2024-06-05",
+        "sale_amount": 2.5,
+        "stock_hour6_22_cnt": 0
+      },
+      {
+        "sku_id": 834,
+        "date": "2024-06-06",
+        "sale_amount": 2.5,
+        "stock_hour6_22_cnt": 0
+      },
+      {
+        "sku_id": 834,
+        "date": "2024-06-07",
+        "sale_amount": 2.4,
+        "stock_hour6_22_cnt": 0
+      }
+    ]
+  }
+}
