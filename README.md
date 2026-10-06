@@ -12,42 +12,40 @@
 
 ## 项目架构
 
-```text
-用户自然语言
-      ↓
-Dify Intent Classification
-      ↓
- ┌───────────────┬───────────────┬───────────────┐
- ↓               ↓               ↓
-Decision Query   Policy Query     Scenario Query
- ↓               ↓               ↓
-参数提取          RAG              Scenario 参数提取
- ↓                               ↓
-FastAPI                         Scenario API
- ↓                               ↓
-Python Decision Backend         Baseline + Override
- ↓                               ↓
-API Result ───────────────┐
-                          ↓
-                     RAG Policy
-                          ↓
-                     LLM 结果解释
-                          ↓
-                        用户
+```mermaid
+flowchart TB
+    U["用户自然语言"] --> IC["Dify Intent Classification"]
+
+    IC --> DQ["Decision Query"]
+    IC --> PQ["Policy Query"]
+    IC --> SQ["Scenario Query"]
+
+    DQ --> DP["参数提取"]
+    DP --> DAPI["GET /replenishment-decision"]
+    DAPI --> DBE["Python Decision Backend"]
+    DBE --> DR["Baseline API Result"]
+
+    PQ --> RAG["RAG Policy Knowledge"]
+
+    SQ --> SP["Scenario 参数提取"]
+    SP --> SAPI["POST /scenario-decision"]
+    SAPI --> SO["Baseline + Override"]
+    SO --> SR["Scenario API Result"]
+
+    DR --> RAG
+    SR --> RAG
+    RAG --> LLM["LLM 结果解释"]
+    LLM --> OUT["用户"]
 ```
 
 后端部署链路：
 
-```text
-GitHub
-  ↓
-Vercel
-  ↓
-FastAPI
-  ↓
-SQLite
-  ↓
-Python Decision Engine
+```mermaid
+flowchart LR
+    GH["GitHub"] --> VE["Vercel"]
+    VE --> API["FastAPI"]
+    API --> DB["SQLite"]
+    DB --> ENGINE["Python Decision Engine"]
 ```
 
 ---
