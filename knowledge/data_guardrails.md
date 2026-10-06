@@ -9,6 +9,7 @@
 - `estimated_daily_demand` 的单位为 `normalized demand units/day`。
 - `current_inventory` 使用与需求一致的 normalized scale。
 - `current_inventory` 不能解释成真实库存件数。
+- 因此`current_inventory` 和 `estimated_daily_demand` 均不得解释为真实商品件数、金额或其他物理库存单位。
 
 ## Simulated Operational Parameters：模拟运营参数
 
@@ -19,53 +20,27 @@
 
 ## Complete In-Stock Day：完整有货日
 
-完整有货日定义为：
-
-```text
-stock_hour6_22_cnt = 0
-```
-
-只有完整有货日的 `sale_amount` 才参与 `estimated_daily_demand` 的 median 计算。
+完整有货日定义为 `stock_hour6_22_cnt = 0`。只有完整有货日的 `sale_amount` 才参与 `estimated_daily_demand` 的 median 计算。
 
 ## as_of_date Boundary：决策时间边界
 
-任何需求估计只能使用：
-
-```text
-date < as_of_date
-```
-
-不得使用 `as_of_date` 当天或未来数据。
+任何需求估计只能使用满足 `date < as_of_date` 的历史数据，不得使用 `as_of_date` 当天或未来数据。
 
 ## Exact Time Windows：精确窗口范围
 
+
+
 ### 14-day window
 
-```text
-as_of_date - 14 days <= date < as_of_date
-```
+`as_of_date - 14 days <= date < as_of_date`
 
 ### 30-day window
 
-```text
-as_of_date - 30 days <= date < as_of_date
-```
+`as_of_date - 30 days <= date < as_of_date`
 
 ### 窗口示例
 
-当：
-
-```text
-as_of_date = 2024-06-25
-```
-
-14-day window 为：
-
-```text
-2024-06-11 ～ 2024-06-24
-```
-
-该窗口严格不包含 `2024-06-25`。
+当 `as_of_date = 2024-06-25` 时，14-day window 为 `2024-06-11 ～ 2024-06-24`，该窗口严格不包含 `2024-06-25`。
 
 ## No Look-Ahead：禁止使用未来信息
 
@@ -73,14 +48,8 @@ as_of_date = 2024-06-25
 - 决策阶段不得读取未来数据。
 - 该约束用于防止 data leakage 和 look-ahead bias。
 
+
+
 ## Dynamic Demand：动态需求估计
 
-`estimated_daily_demand` 不是 SKU 的静态属性。
-
-它必须根据以下组合动态重新计算：
-
-```text
-sku_id + as_of_date
-```
-
-不同的 `as_of_date` 可以得到不同的需求估计、需求置信度和窗口类型。
+`estimated_daily_demand` 不是 SKU 的静态属性，而是必须根据 `sku_id + as_of_date` 动态重新计算。不同的 `as_of_date` 可以得到不同的需求估计、需求置信度和窗口类型。
